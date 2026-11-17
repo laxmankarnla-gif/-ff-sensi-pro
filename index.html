@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laxman FF Sensi Pro - Free Fire India</title>
+    <style>
+        :root {
+            --primary: #ff4655;
+            --secondary: #00e5ff;
+            --yellow: #ffb703;
+            --bg: #070b14;
+            --card: #101726;
+            --text: #f8fafc;
+            --border: #1e2d4a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 14px;
+        }
+
+        .main-container {
+            background-color: var(--card);
+            width: 100%;
+            max-width: 460px;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2);
+            border: 1px solid var(--border);
+        }
+
+        /* बेहतरीन ऑटो-लोडेड गेमिंग बैनर */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            border: 2px solid var(--secondary);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .hero-banner::before {
+            content: "🎮";
+            font-size: 45px;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.8);
+        }
+
+        .hero-overlay {
+            position: relative;
+            z-index: 2;
+            background: rgba(7, 11, 20, 0.8);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 70, 85, 0.3);
+            color: var(--yellow);
+            border: 1px solid var(--primary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 19px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 70, 85, 0.8);
+        }
+
+        .section-box {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        select {
+            width: 100%;
+            padding: 11px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: #070b14;
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: var(--secondary);
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, var(--primary), #ff6b00);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 6px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(255, 70, 85, 0.4);
+        }
+
+        .result-panel {
+            margin-top: 20px;
+            background-color: #090e1a;
+            padding: 16px;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .result-header {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .sub-heading {
+            font-size: 12px;
+            color: var(--secondary);
+            font-weight: bold;
+            margin: 12px 0 5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 3px;
+        }
+
+        .sensi-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #151f33;
+            font-size: 13px;
+        }
+
+        .sensi-number {
+            font-weight: bold;
+            color: #4ade80;
+        }
+
+        .highlight-val {
+            color: var(--yellow);
+            font-weight: bold;
+        }
+
+        .hud-screen {
+            position: relative;
+            width: 100%;
+            height: 175px;
+            background: linear-gradient(180deg, #162136 0%, #060911 100%);
+            border: 2px solid #2c3e5e;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .hud-screen::before {
+            content: "FREE FIRE INDIA HUD";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.06);
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .hud-btn {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 9px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            box-shadow: 0 0 6px rgba(0,0,0,0.7);
+        }
+
+        .btn-joy { width: 42px; height: 42px; border: 2px dashed #94a3b8; background: rgba(148, 163, 184, 0.2); bottom: 15px; left: 15px; }
+        .btn-fire { width: 42px; height: 42px; border: 2px solid var(--primary); background: rgba(255, 70, 85, 0.4); }
+        .btn-gloo { width: 36px; height: 36px; border: 2px solid var(--secondary); background: rgba(0, 229, 255, 0.3); }
+        .btn-jump { width: 32px; height: 32px; border: 2px solid #4ade80; background: rgba(74, 222, 128, 0.3); }
+        .btn-crouch { width: 32px; height: 32px; border: 2px solid var(--yellow); background: rgba(255, 183, 3, 0.3); }
+        .btn-scope { width: 32px; height: 32px; border: 2px solid #c084fc; background: rgba(192, 132, 252, 0.3); }
+
+        .hud-tips {
+            font-size: 11px;
+            color: #cbd5e1;
+            background: #101726;
+            padding: 8px;
+            border-radius: 6px;
+            line-height: 1.4;
+            border: 1px solid var(--border);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .copy-trigger, .link-copy-btn {
+            width: 100%;
+            padding: 11px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .copy-trigger {
+            background-color: #162238;
+            color: white;
+            border: 1px solid #2b3f63;
+        }
+
+        .link-copy-btn {
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: white;
+            border: none;
+            margin-top: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <!-- ऑटो-डिज़ाइन किया गया शानदार गेमिंग बैनर -->
+    <div class="hero-banner">
+        <div class="hero-overlay">
+            <span class="badge">🇮🇳 FREE FIRE INDIA PRO</span>
+            <h1>LAXMAN FF SENSI PRO</h1>
+        </div>
+    </div>
+
+    <div class="section-box">
+        <label for="deviceSelect">अपना मोबाइल (विशेषज्ञ ऑप्टिमाइजेशन):</label>
+        <select id="deviceSelect">
+            <option value="Samsung Galaxy A06 5G">⭐ Samsung Galaxy A06 5G (आपका फोन - 4GB RAM)</option>
+            <option value="Samsung Galaxy A14 / A15">Samsung Galaxy A14 / A15 (4GB RAM)</option>
+            <option value="Redmi 12 / 13C">Redmi 12 / 13C (4GB RAM)</option>
+            <option value="Realme / Oppo 4GB">Realme / Oppo (4GB RAM)</option>
+            <option value="High-End / Gaming Phone">High-End / Flagship Phone (8GB/12GB)</option>
+        </select>
+    </div>
+
+    <div class="section-box">
+        <label for="headshotStyle">हेडशॉट स्टाइल चुनें:</label>
+        <select id="headshotStyle">
+            <option value="onetap">One-Tap Headshot (Desert Eagle / M1887)</option>
+            <option value="smg">SMG & AR Drag (MP40 / UMP / SCAR)</option>
+            <option value="allround">All-Rounder (Rank Push)</option>
+        </select>
+    </div>
+
+    <div class="section-box">
+        <label for="fingerMode">फिंगर कंट्रोल (Custom HUD):</label>
+        <select id="fingerMode">
+            <option value="2finger">2-Finger Thumb (दाहिने हाथ पर Fire, Jump, Gloo)</option>
+            <option value="3finger">3-Finger Claw (ऊपर बाएं Gloo + दाएं कंट्रोल)</option>
+            <option value="4finger">4-Finger Pro Claw (फास्ट ग्लू वॉल)</option>
+        </select>
+    </div>
+
+    <button class="action-btn" onclick="generateFFIndia()">पूर्ण सेटिंग्स और डेवलपर ऑप्शन देखें</button>
+
+    <div class="result-panel" id="resultPanel">
+        <div class="result-header" id="resTitle">Device Setup</div>
+        
+        <div class="sub-heading">🎯 इन-गेम सेंसिटिविटी (200 Scale)</div>
+        <div class="sensi-row"><span>General (कैमरा):</span><span class="sensi-number" id="valGen">0</span></div>
+        <div class="sensi-row"><span>Red Dot:</span><span class="sensi-number" id="valRed">0</span></div>
+        <div class="sensi-row"><span>2x Scope:</span><span class="sensi-number" id="val2x">0</span></div>
+        <div class="sensi-row"><span>4x Scope:</span><span class="sensi-number" id="val4x">0</span></div>
+        <div class="sensi-row"><span>Sniper Scope:</span><span class="sensi-number" id="valSniper">0</span></div>
+        <div class="sensi-row"><span>Free Look:</span><span class="sensi-number" id="valFree">0</span></div>
+
+        <div class="sub-heading">⚙️ डेवलपर ऑप्शन और मोबाइल सेटिंग्स</div>
+        <div class="sensi-row"><span>Best DPI (Smallest Width):</span><span class="highlight-val" id="valDpi">0</span></div>
+        <div class="sensi-row"><span>Fire Button Size:</span><span class="highlight-val" id="valFireSize">0</span></div>
+        <div class="sensi-row"><span>Fire Button Position:</span><span class="highlight-val" id="valFirePos">0</span></div>
+        <div class="sensi-row"><span>Touch Sensitivity (ग्लास गार्ड):</span><span class="highlight-val" id="valTouch">ON (चालू रखें)</span></div>
+        <div class="sensi-row"><span>Pointer Speed:</span><span class="highlight-val" id="valPointer">Full (सबसे तेज)</span></div>
+        <div class="sensi-row"><span>Background Process Limit:</span><span class="highlight-val" id="valBg">At most 2 processes</span></div>
+
+        <div class="sub-heading" id="hudHeader">🎮 Custom HUD Layout</div>
+        <div class="hud-screen">
+            <div class="hud-btn btn-joy">Move</div>
+            <div class="hud-btn btn-fire" id="bFire">Fire</div>
+            <div class="hud-btn btn-gloo" id="bGloo">Gloo</div>
+            <div class="hud-btn btn-jump" id="bJump">Jump</div>
+            <div class="hud-btn btn-crouch" id="bCrouch">Sit</div>
+            <div class="hud-btn btn-scope" id="bScope">Scope</div>
+        </div>
+        <div class="hud-tips" id="hudDesc"></div>
+
+        <div class="btn-group">
+            <button class="copy-trigger" onclick="copyFFSettings()">📋 पूरी सेटिंग्स कॉपी करें</button>
+        </div>
+    </div>
+
+    <button class="link-copy-btn" onclick="copyAllLinks()">🔗 ऑल वेबसाइट लिंक कॉपी करें</button>
+</div>
+
+<script>
+    function generateFFIndia() {
+        const deviceName = document.getElementById('deviceSelect').value;
+        const style = document.getElementById('headshotStyle').value;
+        const fingerMode = document.getElementById('fingerMode').value;
+
+        let gen = 188, red = 178, s2 = 165, s4 = 154, snip = 108, free = 158;
+        let dpi = "470 (Samsung Galaxy A06 4GB के लिए बेस्ट)";
+        let fireSize = "42%";
+        let firePos = "नीचे दाहिनी ओर (Bottom Right)";
+
+        if (deviceName.includes("High-End")) {
+            gen = 152; red = 144; s2 = 138; s4 = 128; snip = 88; free = 130;
+            dpi = "Default (DPI की आवश्यकता नहीं)";
+            fireSize = "48%";
+        }
+
+        if (style === 'onetap') {
+            gen += 4; red += 5;
+            fireSize = "40%";
+            firePos = "हल्का ऊपर की तरफ (Straight Drag के लिए)";
+        }
+
+        const clamp200 = (val) => Math.min(200, Math.max(80, val + Math.floor(Math.random() * 3)));
+
+        document.getElementById('resTitle').innerText = `🔥 ${deviceName} - Pro FF Setup`;
+        document.getElementById('valGen').innerText = clamp200(gen);
+        document.getElementById('valRed').innerText = clamp200(red);
+        document.getElementById('val2x').innerText = clamp200(s2);
+        document.getElementById('val4x').innerText = clamp200(s4);
+        document.getElementById('valSniper').innerText = clamp200(snip);
+        document.getElementById('valFree').innerText = clamp200(free);
+
+        document.getElementById('valDpi').innerText = dpi;
+        document.getElementById('valFireSize').innerText = fireSize;
+        document.getElementById('valFirePos').innerText = firePos;
+
+        const bFire = document.getElementById('bFire');
+        const bGloo = document.getElementById('bGloo');
+        const bJump = document.getElementById('bJump');
+        const bCrouch = document.getElementById('bCrouch');
+        const bScope = document.getElementById('bScope');
+        const hudHeader = document.getElementById('hudHeader');
+        const hudDesc = document.getElementById('hudDesc');
+
+        if (fingerMode === '2finger') {
+            hudHeader.innerText = "🎮 2-Finger Custom HUD (दाहिने हाथ का कंट्रोल)";
+            bFire.style.cssText = "bottom: 18px; right: 22px;";
+            bGloo.style.cssText = "bottom: 18px; right: 72px;";
+            bJump.style.cssText = "bottom: 65px; right: 18px;";
+            bCrouch.style.cssText = "bottom: 65px; right: 58px;";
+            bScope.style.cssText = "top: 20px; right: 20px;";
+            hudDesc.innerHTML = "• <b>बायां हाथ:</b> केवल मूवमेंट (Joystick) के लिए।<br>• <b>दाहिना हाथ:</b> Fire, Gloo Wall, Jump और Sit बटन पास रखें ताकि वन-टैप के तुरंत बाद ग्लू वॉल लग सके।";
+        } 
+        else if (fingerMode === '3finger') {
+            hudHeader.innerText = "🎮 3-Finger Claw Custom HUD";
+            bFire.style.cssText = "bottom: 18px; right: 22px;";
+            bGloo.style.cssText = "top: 15px; left: 18px;";
+            bJump.style.cssText = "bottom: 65px; right: 18px;";
+            bCrouch.style.cssText = "bottom: 18px; right: 72px;";
+            bScope.style.cssText = "top: 20px; right: 20px;";
+            hudDesc.innerHTML = "• <b>ऊपर बाईं उंगली:</b> तुरंत Gloo Wall लगाने के लिए।<br>• <b>दाहिना अंगूठा:</b> ड्रैग हेडशॉट और मूवमेंट के लिए।";
+        } 
+        else if (fingerMode === '4finger') {
+            hudHeader.innerText = "🎮 4-Finger Pro Claw Custom HUD";
+            bFire.style.cssText = "bottom: 18px; right: 22px;";
+            bGloo.style.cssText = "top: 15px; left: 18px;";
+            bJump.style.cssText = "top: 15px; right: 20px;";
+            bCrouch.style.cssText = "top: 15px; right: 58px;";
+            bScope.style.cssText = "bottom: 65px; right: 22px;";
+            hudDesc.innerHTML = "• <b>ऊपर बाईं उंगली:</b> ग्लू वॉल और गन स्विच।<br>• <b>ऊपर दाईं उंगली:</b> Jump और Sit बटन।<br>• <b>दाहिना अंगूठा:</b> केवल स्क्रीन ड्रैग करने के लिए।";
+        }
+
+        document.getElementById('resultPanel').style.display = 'block';
+    }
+
+    function copyFFSettings() {
+        const title = document.getElementById('resTitle').innerText;
+        const text = `${title}\n` +
+            `• General: ${document.getElementById('valGen').innerText}\n` +
+            `• Red Dot: ${document.getElementById('valRed').innerText}\n` +
+            `• 2x Scope: ${document.getElementById('val2x').innerText}\n` +
+            `• 4x Scope: ${document.getElementById('val4x').innerText}\n` +
+            `• Sniper: ${document.getElementById('valSniper').innerText}\n` +
+            `• Best DPI: ${document.getElementById('valDpi').innerText}\n` +
+            `• Fire Button Size: ${document.getElementById('valFireSize').innerText}\n` +
+            `• Touch Sensitivity: चालू (ग्लास गार्ड के लिए)\n` +
+            `• Pointer Speed: फुल`;
+
+        navigator.clipboard.writeText(text).then(() => {
+            alert("सेटिंग्स सफलतापूर्वक कॉपी हो गई हैं!");
+        });
+    }
+
+    function copyAllLinks() {
+        const text = `🔥 LAXMAN FF SENSI PRO - Free Fire India Tool\n` +
+            `🌐 Website: ${window.location.href}\n` +
+            `⚡ Features: Sensi, DPI, Developer Options & Custom HUD`;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("वेबसाइट लिंक कॉपी हो गया है!");
+        });
+    }
+</script>
+
+</body>
+</html>
